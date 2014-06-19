@@ -24,12 +24,13 @@ namespace BSOD_Screensaver
             }
         }
 
-        private Point MouseXY;
+        private Point MouseXY; // Used to check if the mouse was moved
         private int ScreenNumber;
         private ImageList imageList1;
         public string mode = "LR";
         private int progressThroughMesssage = 0;
         private string[] message = {
+                                       "",
                                        "*** STOP: 0x0000001E  (0xC0000005, 0xF24A447A, 0x00000001, 0x00000000)",
                                        "KMODE_EXCEPTION_NOT_HANDLED",
                                        "",
@@ -90,21 +91,11 @@ namespace BSOD_Screensaver
             Close();
         }
 
-        private void updateLabelText()
-        {
-            this.label1.Text = "\n";
-            for (int i = 0; i < progressThroughMesssage; i++)
-            {
-                this.label1.Text += "\n" + message[i];
-            }
-        }
-
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (progressThroughMesssage < message.Length)
+            if (progressThroughMesssage < message.Length - 1)
             {
-                progressThroughMesssage++;
-                updateLabelText();
+                this.label1.Text += "\n" + message[++progressThroughMesssage];
             }
         }
     }
